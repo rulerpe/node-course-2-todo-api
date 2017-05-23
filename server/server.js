@@ -49,12 +49,23 @@ app.get('/todos/:id',(req,res)=>{
   }).catch((e)=>{
     return res.status(400).send(e);
   })
-  //success
-  //if todo send back
-  //if not send back 404
-  //error
-  //400
-  //res.send(req.parms.id);
+
+})
+
+app.delete('/todos/:id', (req,res)=>{
+  var id = req.params.id;
+  if(!ObjectID.isValid(id)){
+    return res.status(404).send();
+  }
+
+  Todo.findByIdAndRemove(id).then((doc)=>{
+    if(!doc){
+      return res.status(404).send();
+    }
+    res.status(200).send({doc});
+  }).catch((e)=>{
+      return res.status(400).send(e);    
+    })
 })
 
 app.listen(port, ()=>{
