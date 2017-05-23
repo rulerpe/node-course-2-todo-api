@@ -6,6 +6,6 @@ let db = {
   mlab: 'mongodb://rulerpe:ddddffff@ds149431.mlab.com:49431/nodetodoapiapp'
 }
 //mongoose.connect('mongodb://localhost:27017/TodoApp');
-mongoose.connect(db.localhost || db.mlab);
+mongoose.connect(process.env.PORT ? db.mlab : db.localhost);
 
 module.exports = {mongoose};
